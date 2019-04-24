@@ -1,0 +1,80 @@
+<h3 class="text-center font-weight-bold text-uppercase py-4">Administración de usuarios</h3>
+
+<div class="row">
+
+  <div class="col-md-12">
+    <span class="float-right mb-3 mr-2">
+      <a class="text-success" routerLink="/user">
+        <mdb-icon fas icon="plus" size="2x"></mdb-icon>
+      </a>
+    </span>
+  </div>
+</div>
+
+<div class="table-responsive-md">
+  <table mdbTable class="table" hover="true">
+    <thead>
+      <tr>
+        <th class="text-center" scope="col">#</th>
+        <th class="text-center" scope="col">Nombre de usuario</th>
+        <th class="text-center" scope="col">Nombre</th>
+        <th class="text-center" scope="col">Correo</th>
+        <th class="text-center" scope="col">Rol</th>
+        <th class="text-center" scope="col">Estado</th>
+        <th class="text-center" scope="col">Editar</th>
+        <!-- <th class="text-center" scope="col">Eliminar</th> -->
+        <th class="text-center" scope="col">Deshabilitar</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr mdbTableCol *ngFor="let person of users; let id = index">
+        <th scope="row">{{id+1}}</th>
+        <td class="text-center">{{person.userId}}</td>
+        <td class="text-center"> {{person.userName}}</td>
+        <td class="text-center">{{person.userEmail}}</td>
+        <td class="text-center">{{person.role.roleName}} </td>
+        <td class="text-center">{{person.userState}} </td>
+        <td class="text-center">
+          <span class="table-update">
+            <button type="button" mdbBtn color="success" class="relative waves-light" size="sm" class="my-0"
+              (click)="update(person.userId)" mdbWavesEffect>Editar</button>
+          </span>
+        </td>
+        <!-- <td class="text-center">
+          <span class="table-remove">
+            <button type="button" mdbBtn color="danger" class="relative waves-light" size="sm" class="my-0"
+              (click)="basicModal.show()" mdbWavesEffect>Eliminar</button>
+            <div mdbModal #basicModal="mdbModal" class="modal fade" tabindex="-1" role="dialog"
+              aria-labelledby="myBasicModalLabel" aria-hidden="true">
+              <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close pull-right" aria-label="Close" (click)="basicModal.hide()">
+                      <span aria-hidden="true">×</span>
+                    </button>
+                    <h4 class="modal-title w-100" id="myModalLabel">Confirmación</h4>
+                  </div>
+                  <div class="modal-body">
+                    Va a eliminar el usuario <b>{{person.userId}}</b>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" mdbBtn color="secondary" class="waves-light" aria-label="Close"
+                      (click)="basicModal.hide()" mdbWavesEffect>Cancelar</button>
+                    <button type="button" mdbBtn color="primary" class="relative waves-light" (click)="remove(id)"
+                      mdbWavesEffect>Aceptar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </span>
+        </td> -->
+        <td class="text-center">
+          <span class="table-update">
+            <button type="button" mdbBtn color="danger" class="relative waves-light" size="sm" class="my-0"
+              (click)="disable(id)" mdbWavesEffect>Deshabilitar</button>
+          </span>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,33 @@
+<form (ngSubmit)="!loginForm.invalid && handleJWTLogin()" #loginForm="ngForm"
+  class="text-center border border-light p-5">
+
+  <p class="h4 mb-4">Iniciar Sesión</p>
+
+  <input type="text" class="form-control mb-4" #usernameTxt="ngModel" id="username" name="username"
+    aria-describedby="usernameHelp" [(ngModel)]="username" placeholder="Nombre de usuario" required>
+  <small id="usernameHelp" class="form-text text-muted" *ngIf="usernameTxt.dirty && usernameTxt.invalid">Ingrese
+    nombre de usuario</small>
+
+  <input type="password" class="form-control mb-4" #passwordTxt="ngModel" id="password" name="password"
+    aria-describedby="passwordHelp" [(ngModel)]="password" placeholder="Contraseña" required>
+  <small id="passwordHelp" class="form-text text-muted" *ngIf="passwordTxt.dirty && passwordTxt.invalid">Ingrese
+    contraseña</small>
+
+  <div class="d-flex justify-content-around">
+    <div>
+      <mdb-checkbox [default]="true">Remember me</mdb-checkbox>
+    </div>
+    <div>
+      <a href="">Forgot password?</a>
+    </div>
+  </div>
+
+  <button mdbBtn color="info" block="true" class="my-4" type="submit">Ingresar</button>
+
+  <!-- Register -->
+  <p>¿No tienes una cuenta?
+    <a routerLink="/register">Regístrate</a>
+  </p>
+
+</form>
+<!-- Default form login -->

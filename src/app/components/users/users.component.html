@@ -1,0 +1,69 @@
+<form (ngSubmit)="!registryForm.invalid && saveUser()" #registryForm="ngForm"
+  class="text-center border border-light p-5">
+
+  <p class="h4">{{title}}</p>
+
+  <div class="row mb-2">
+    <div class="col">
+      <span class=float-left mb-3 mr-2>
+        <a class="text-info" routerLink="/users">
+          <mdb-icon fas icon="arrow-left" size="2x"></mdb-icon>
+        </a>
+      </span>
+    </div>
+  </div>
+
+  <div class="form-row mb-4">
+    <div class="col">
+      <label *ngIf="!isNewUser">Nombre</label>
+      <input type="text" id="firstName" class="form-control" placeholder="Nombre" #firstNameTxt="ngModel"
+        [(ngModel)]="firstName" name="firstName" required aria-describedby="firstNameHelp">
+      <small id="firstNameHelp" class="form-text text-muted" *ngIf="firstNameTxt.dirty && firstNameTxt.invalid">Ingrese
+        su nombre</small>
+    </div>
+    <div class="col">
+      <label *ngIf="!isNewUser">Apellido</label>
+      <input type="text" id="lastName" class="form-control" placeholder="Apellido" #lastNameTxt="ngModel"
+        [(ngModel)]="lastName" name="lastName" required aria-describedby="lastNameHelp">
+      <small id="lastNameHelp" class="form-text text-muted" *ngIf="lastNameTxt.dirty && lastNameTxt.invalid">Ingrese
+        su apellido</small>
+    </div>
+  </div>
+
+  <label *ngIf="!isNewUser">Nombre de usuario</label>
+  <input type="text" id="username" class="form-control mb-4" placeholder="Nombre de usuario" #usernameTxt="ngModel"
+    [(ngModel)]="username" name="username" required aria-describedby="usernameHelp" disabled="{{!isNewUser}}">
+  <small id="usernameHelp" class="form-text text-muted" *ngIf="usernameTxt.dirty && usernameTxt.invalid">Ingrese
+    nombre de usuario</small>
+
+  <label *ngIf="!isNewUser">Correo</label>
+  <input type="email" id="email" class="form-control mb-4" placeholder="Correo" #emailTxt="ngModel" [(ngModel)]="email"
+    name="email" required aria-describedby="emailHelp">
+  <small id="emailHelp" class="form-text text-muted" *ngIf="emailTxt.dirty && emailTxt.invalid">Ingrese
+    un correo válido</small>
+
+  <div class="form-row mb-4" *ngIf="!isNewUser">
+    <div class="col">
+      <label>Rol</label>
+      <select class="browser-default custom-select" name="roleCode" [(ngModel)]="roleCode" >
+        <option *ngFor="let role of roles" [value]="role.roleId">{{role.roleName}}</option>
+      </select>
+    </div>
+    <div class="col">
+      <label>Estado</label>
+      <select class="browser-default custom-select" name="state" [(ngModel)]="state">
+          <option *ngFor="let state of states" [value]="state.value">{{state.label}}</option>
+        </select>
+    </div>
+  </div>
+
+  <label *ngIf="!isNewUser">Cambiar contraseña</label>
+  <input type="password" id="password" class="form-control" placeholder="Contraseña" #passwordTxt="ngModel"
+    [(ngModel)]="password" name="password" required="{{isNewUser}}" minlength="6" aria-describedby="passwordHelper">
+  <small id="passwordHelper" class="form-text text-muted mb-4">
+    Ingrese al menos 6 caracteres
+  </small>
+
+  <button mdbBtn color="info" block="true" class="my-4" type="submit">Confirmar</button>
+
+</form>
