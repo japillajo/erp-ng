@@ -36,10 +36,10 @@ export class RegisterComponent implements OnInit {
     user = new User(this.username, this.email, this.firstName, 'A', this.lastName)
     password = new Password(passwrdHash, user)
 
-    this.userService.createUser(password).subscribe(
-      data => {
+    this.userService.register(password).subscribe(
+      response => {
         //console.log(data)
-        this.alertService.success(data.message, true)
+        this.alertService.success(response.detail.message, true)
         this.router.navigate(['login'])
       }
     )

@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { API_URL } from '../app.constants';
-import { ArrayUtilService } from './utils/array-util.service';
 
 export const TOKEN = 'token'
 export const AUTHENTICATED_USER = 'authenticatedUser'
@@ -16,8 +15,7 @@ export class BasicAuthenticationService {
   name: string
 
   constructor(
-    private http: HttpClient,
-    private arrayUtilService: ArrayUtilService
+    private http: HttpClient
   ) { }
 
   executeJWTAuthenticationService(username, password) {
@@ -25,28 +23,30 @@ export class BasicAuthenticationService {
     return this.http.post<any>(`${API_URL}/authenticate`, { username, password })
       .pipe(
         map(
-          data => {
+          response => {
             sessionStorage.setItem(AUTHENTICATED_USER, username);
-            sessionStorage.setItem(TOKEN, `Bearer ${data.token}`);
+            sessionStorage.setItem(TOKEN, `Bearer ${response.token}`);
 
-            return data;
+            return response;
           }
         )
       );
   }
 
   retrieveMenuList(username) {
-    this.http.get<any>(`${API_URL}/modules/admin/erp/${username}`).subscribe(
-      data => {
-        if (data.code === '0000') {
-          this.modules = data.data
+    this.http.get<any>(`${API_URL}/modules/${username}/admin/erp`).subscribe(
+      response => {
+        if (response.detail.code === '0000') {
+          this.modules = response.detail.data
         }
       })
   }
 
   retrieveUserFullName(username) {
-    this.http.get<any>(`${API_URL}/users/admin/erp/${username}`).subscribe(
-      data => this.name = data.data.userName + ' ' + data.data.userLastname
+    this.http.get<any>(`${API_URL}/users/${username}/admin/erp/${username}`).subscribe(
+      response => {
+        this.name = response.detail.data.userName + ' ' + response.detail.data.userLastname
+      }
     )
   }
 
@@ -75,8 +75,7 @@ export class BasicAuthenticationService {
   }
 
   getUserMenu() {
-    return this.modules;
+    return this.modules
   }
-
 }
 

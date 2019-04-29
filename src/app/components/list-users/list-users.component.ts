@@ -3,6 +3,7 @@ import { UserService } from 'src/app/services/data/user.service';
 import { AlertService } from 'src/app/services/alert.service';
 import { Router } from '@angular/router';
 import { User } from '../users/users.component';
+import { BasicAuthenticationService } from 'src/app/services/basic-authentication.service';
 
 
 @Component({
@@ -28,7 +29,7 @@ export class ListUsersComponent implements OnInit {
     this.userService.retrieveAllUsers().subscribe(
       response => {
         //console.log(response);
-        this.users = response.data
+        this.users = response.detail.data
       },
       error => {
         console.log(error)
@@ -46,7 +47,7 @@ export class ListUsersComponent implements OnInit {
     this.userService.disableUser(userToDisable.userId, userToDisable).subscribe(
       response => {
         //console.log(response)
-        this.alertService.success(response.message)
+        this.alertService.success(response.detail.message)
         this.refreshUsers()
       },
       error => {
@@ -60,7 +61,7 @@ export class ListUsersComponent implements OnInit {
     this.userService.deleteUser(userToDelete.userId).subscribe(
       response => {
         //console.log(response)
-        this.alertService.success(response.message)
+        this.alertService.success(response.detail.message)
         this.refreshUsers()
       },
       error => {

@@ -98,9 +98,9 @@ export class UsersComponent implements OnInit {
       password = new Password(passwrdHash, user)
 
       this.userService.createUser(password).subscribe(
-        data => {
+        response => {
           //console.log(data)
-          this.alertService.success(data.message, true)
+          this.alertService.success(response.detail.message, true)
           this.router.navigate(['users'])
         }
       )
@@ -129,9 +129,9 @@ export class UsersComponent implements OnInit {
       }
 
       this.userService.updateUser(password).subscribe(
-        data => {
+        response => {
           //console.log(data)
-          this.alertService.success(data.message, true)
+          this.alertService.success(response.detail.message, true)
           this.router.navigate(['users'])
         }
       )
@@ -143,7 +143,7 @@ export class UsersComponent implements OnInit {
 
     this.userService.retrieveUser(username).subscribe(
       response => {
-        let user: User = response.data
+        let user: User = response.detail.data
         this.firstName = user.userName
         this.lastName = user.userLastname
         this.username = user.userId
@@ -157,7 +157,7 @@ export class UsersComponent implements OnInit {
   getRoles() {
     this.roleService.retrieveAllUsers().subscribe(
       response => {
-        this.roles = response.data
+        this.roles = response.detail.data
       }
     )
   }
